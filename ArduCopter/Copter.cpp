@@ -467,7 +467,9 @@ void Copter::one_hz_loop()
 #if ADSB_ENABLED == ENABLED
     adsb.set_is_flying(!ap.land_complete);
 #endif
-
+    gcs().send_text(MAV_SEVERITY_CRITICAL,
+                     "Current altitude: %.1fm",
+                     copter.flightmode->get_alt_above_ground_cm()/100.0f);
     AP_Notify::flags.flying = !ap.land_complete;
 }
 
